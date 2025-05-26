@@ -8,7 +8,9 @@ La arquitectura se basará en componentes funcionales, y se implementará un sis
 
 ## Integrantes del Grupo
 
-* **Nombre:** Iriarte gloss Valentin Mateo
-    * **Usuario GitHub:** valentiniriar
-
-
+- **Nombre:** Iriarte gloss Valentin Mateo
+  - **Usuario GitHub:** valentiniriar
+    <br>
+- **Nombre:** Churquina Facundo
+  - **Usuario GitHub:** Facudebug123
+    <br>
