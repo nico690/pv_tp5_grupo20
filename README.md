@@ -14,3 +14,5 @@ La arquitectura se basará en componentes funcionales, y se implementará un sis
 - **Nombre:** Churquina Facundo
   - **Usuario GitHub:** Facudebug123
     <br>
+- **Nombre:** Chavez Rodrigo Nicolas
+  - **Usuario GitHub:** nico690
