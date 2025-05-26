@@ -16,3 +16,5 @@ La arquitectura se basará en componentes funcionales, y se implementará un sis
     <br>
 - **Nombre:** Gutierrez Nanda Mauro Nahuel
   - **Usuario GitHub:** MauroNanda
+- **Nombre:** Chavez Rodrigo Nicolas
+  - **Usuario GitHub:** nico690
