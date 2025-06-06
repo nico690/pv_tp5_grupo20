@@ -1,25 +1,12 @@
 import React from "react";
+import AlumnoForm from "../components/AlumnoForm";
 
-const AgregarAlumno = () => {
+function AgregarAlumno({ agregarAlumno }) {
   return (
     <div>
-      <h2>Agregar Alumno</h2>
-      <form>
-        <label>
-          Nombre:
-          <input type="text" name="nombre" />
-        </label>
-        <br />
-        <label>
-          Apellido:
-          <input type="text" name="apellido" />
-        </label>
-        <br />
-        
-        <button type="submit">Guardar</button>
-      </form>
+      <AlumnoForm onSubmitForm={agregarAlumno} />
     </div>
   );
-};
+}
 
 export default AgregarAlumno;

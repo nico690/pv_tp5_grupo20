@@ -1,8 +1,18 @@
-function EditarAlumno() {
+import React from "react";
+import { useParams, Navigate } from "react-router-dom";
+import AlumnoForm from "../components/AlumnoForm";
+
+function EditarAlumno({ alumnos, editarAlumno }) {
+  const { lu } = useParams();
+  const alumnoAEditar = alumnos.find((a) => a.Lu === lu);
+
+  if (!alumnoAEditar) {
+    return <Navigate to="/alumnos" replace />;
+  }
+
   return (
     <div>
-      <h1>Detalle del Alumno</h1>
-      <p>Información detallada del alumno seleccionado.</p>
+      <AlumnoForm onSubmitForm={editarAlumno} alumnoInicial={alumnoAEditar} />
     </div>
   );
 }
