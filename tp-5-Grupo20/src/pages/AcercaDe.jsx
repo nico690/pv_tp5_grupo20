@@ -30,7 +30,13 @@ function AcercaDe() {
         <li>
           <strong>Usuario GitHub:</strong> Facudebug123
         </li>
-                <li>
+         <li>
+          <strong>Nombre:</strong> Chavez, Rodrigo Nicolas.
+        </li>
+        <li>
+          <strong>Usuario GitHub:</strong> nico690
+        </li>
+         <li>
           <strong>Nombre:</strong> Gutierrez Nanda, Mauro Nahuel.
         </li>
         <li>
