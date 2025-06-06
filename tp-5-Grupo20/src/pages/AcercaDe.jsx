@@ -24,6 +24,12 @@ function AcercaDe() {
         <li>
           <strong>Usuario GitHub:</strong> valentiniriar
         </li>
+        <li>
+          <strong>Nombre:</strong> Churquina Facundo
+        </li>
+        <li>
+          <strong>Usuario GitHub:</strong> Facudebug123
+        </li>
       </ul>
       <p className="mt-20">
         <strong>Objetivo:</strong> Implementar una SPA para la gestión de
