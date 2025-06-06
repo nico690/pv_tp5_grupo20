@@ -16,19 +16,25 @@ function AcercaDe() {
         <strong>Carrera:</strong> Analista Programador Universitario
       </p>
 
-      <h3 className="mt-20">Información del Creador:</h3>
+      <h3 className="mt-20">Información de los Creadores:</h3>
       <ul>
         <li>
-          <strong>Nombre:</strong> Iriarte gloss Valentin Mateo
+          <strong>Nombre:</strong> Iriarte Gloss, Valentin Mateo.
         </li>
         <li>
           <strong>Usuario GitHub:</strong> valentiniriar
         </li>
         <li>
-          <strong>Nombre:</strong> Churquina Facundo
+          <strong>Nombre:</strong> Churquina, Facundo.
         </li>
         <li>
           <strong>Usuario GitHub:</strong> Facudebug123
+        </li>
+                <li>
+          <strong>Nombre:</strong> Gutierrez Nanda, Mauro Nahuel.
+        </li>
+        <li>
+          <strong>Usuario GitHub:</strong> MauroNanda
         </li>
       </ul>
       <p className="mt-20">
