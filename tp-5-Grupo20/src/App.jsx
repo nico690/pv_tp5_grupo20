@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+import { Container } from '@mui/material';
 import NavBar from "./components/NavBar";
 import AppRouter from "./router/AppRouter";
 
@@ -12,25 +15,45 @@ function App() {
     return savedAlumnos ? JSON.parse(savedAlumnos) : [];
   });
 
-  const [theme, setTheme] = useState(() => {
-    const savedTheme = localStorage.getItem("theme") || "light";
-    document.body.className = `${savedTheme}-mode`;
-    return savedTheme;
+  const [mode, setMode] = useState(() => {
+    return localStorage.getItem("theme") || "light";
   });
 
   const navigate = useNavigate();
+
+  const theme = createTheme({
+    palette: {
+      mode,
+      ...(mode === 'light'
+        ? {
+            primary: {
+              main: '#1976d2',
+            },
+            secondary: {
+              main: '#dc004e',
+            },
+          }
+        : {
+            primary: {
+              main: '#90caf9',
+            },
+            secondary: {
+              main: '#f48fb1',
+            },
+          }),
+    },
+  });
 
   useEffect(() => {
     localStorage.setItem("alumnos", JSON.stringify(alumnos));
   }, [alumnos]);
 
   useEffect(() => {
-    localStorage.setItem("theme", theme);
-    document.body.className = `${theme}-mode`;
-  }, [theme]);
+    localStorage.setItem("theme", mode);
+  }, [mode]);
 
   const toggleTheme = () => {
-    setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
+    setMode((prevMode) => (prevMode === "light" ? "dark" : "light"));
   };
 
   const handleAgregarAlumno = (alumno) => {
@@ -55,17 +78,18 @@ function App() {
   };
 
   return (
-    <>
-      <NavBar theme={theme} toggleTheme={toggleTheme} />
-      <div className="container">
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <NavBar theme={mode} toggleTheme={toggleTheme} />
+      <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
         <AppRouter
           alumnos={alumnos}
           agregarAlumno={handleAgregarAlumno}
           editarAlumno={handleEditarAlumno}
           eliminarAlumno={handleEliminarAlumno}
         />
-      </div>
-    </>
+      </Container>
+    </ThemeProvider>
   );
 }
 
