@@ -5,6 +5,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { Container } from '@mui/material';
 import NavBar from "./components/NavBar";
 import AppRouter from "./router/AppRouter";
+import { NotificationProvider } from "./context/NotificationContext";
 
 const generateUniqueLu = () =>
   `APU${Math.random().toString(36).substr(2, 7).toUpperCase()}`;
@@ -80,15 +81,17 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <NavBar theme={mode} toggleTheme={toggleTheme} />
-      <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-        <AppRouter
-          alumnos={alumnos}
-          agregarAlumno={handleAgregarAlumno}
-          editarAlumno={handleEditarAlumno}
-          eliminarAlumno={handleEliminarAlumno}
-        />
-      </Container>
+      <NotificationProvider>
+        <NavBar theme={mode} toggleTheme={toggleTheme} />
+        <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+          <AppRouter
+            alumnos={alumnos}
+            agregarAlumno={handleAgregarAlumno}
+            editarAlumno={handleEditarAlumno}
+            eliminarAlumno={handleEliminarAlumno}
+          />
+        </Container>
+      </NotificationProvider>
     </ThemeProvider>
   );
 }

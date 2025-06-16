@@ -8,6 +8,7 @@ import {
   Container,
   Grid
 } from '@mui/material';
+import { useNotification } from '../context/NotificationContext';
 
 const initialFormState = {
   Lu: "",
@@ -21,6 +22,7 @@ const initialFormState = {
 
 function AlumnoForm({ onSubmitForm, alumnoInicial = null }) {
   const [formData, setFormData] = useState(initialFormState);
+  const { showNotification } = useNotification();
 
   useEffect(() => {
     if (alumnoInicial) {
@@ -38,12 +40,15 @@ function AlumnoForm({ onSubmitForm, alumnoInicial = null }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!formData.nombre || !formData.apellido || !formData.email) {
-      alert("Nombre, Apellido y Email son campos obligatorios.");
+      showNotification('Nombre, Apellido y Email son campos obligatorios', 'error');
       return;
     }
     onSubmitForm(formData);
     if (!alumnoInicial) {
       setFormData(initialFormState);
+      showNotification('Alumno agregado exitosamente', 'success');
+    } else {
+      showNotification('Alumno actualizado exitosamente', 'success');
     }
   };
 
