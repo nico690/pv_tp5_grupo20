@@ -6,9 +6,11 @@ import {
   Typography,
   Box,
   Container,
-  Grid
+  Grid,
+  Tooltip
 } from '@mui/material';
 import { useNotification } from '../context/NotificationContext';
+import LoadingSpinner from './LoadingSpinner';
 
 const initialFormState = {
   Lu: "",
@@ -20,8 +22,14 @@ const initialFormState = {
   telefono: "",
 };
 
-function AlumnoForm({ onSubmitForm, alumnoInicial = null }) {
+const validateEmail = (email) => {
+  const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return re.test(email);
+};
+
+function AlumnoForm({ onSubmitForm, alumnoInicial = null, loading = false }) {
   const [formData, setFormData] = useState(initialFormState);
+  const [errors, setErrors] = useState({});
   const { showNotification } = useNotification();
 
   useEffect(() => {
@@ -35,22 +43,41 @@ function AlumnoForm({ onSubmitForm, alumnoInicial = null }) {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
+    
+    // Validar email en tiempo real
+    if (name === 'email') {
+      setErrors(prev => ({
+        ...prev,
+        email: value && !validateEmail(value) ? 'Email inválido' : ''
+      }));
+    }
+  };
+
+  const validateForm = () => {
+    const newErrors = {};
+    if (!formData.nombre) newErrors.nombre = 'El nombre es requerido';
+    if (!formData.apellido) newErrors.apellido = 'El apellido es requerido';
+    if (!formData.email) {
+      newErrors.email = 'El email es requerido';
+    } else if (!validateEmail(formData.email)) {
+      newErrors.email = 'Email inválido';
+    }
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!formData.nombre || !formData.apellido || !formData.email) {
-      showNotification('Nombre, Apellido y Email son campos obligatorios', 'error');
+    if (!validateForm()) {
+      showNotification('Por favor, corrija los errores en el formulario', 'error');
       return;
     }
     onSubmitForm(formData);
-    if (!alumnoInicial) {
-      setFormData(initialFormState);
-      showNotification('Alumno agregado exitosamente', 'success');
-    } else {
-      showNotification('Alumno actualizado exitosamente', 'success');
-    }
   };
+
+  if (loading) {
+    return <LoadingSpinner message="Procesando..." />;
+  }
 
   return (
     <Container maxWidth="md">
@@ -74,75 +101,93 @@ function AlumnoForm({ onSubmitForm, alumnoInicial = null }) {
               </Grid>
             )}
             <Grid item xs={12} sm={6}>
-              <TextField
-                required
-                fullWidth
-                label="Nombre"
-                id="nombre"
-                name="nombre"
-                value={formData.nombre}
-                onChange={handleChange}
-                variant="outlined"
-              />
+              <Tooltip title="Ingrese el nombre del alumno">
+                <TextField
+                  required
+                  fullWidth
+                  label="Nombre"
+                  id="nombre"
+                  name="nombre"
+                  value={formData.nombre}
+                  onChange={handleChange}
+                  variant="outlined"
+                  error={!!errors.nombre}
+                  helperText={errors.nombre}
+                />
+              </Tooltip>
             </Grid>
             <Grid item xs={12} sm={6}>
-              <TextField
-                required
-                fullWidth
-                label="Apellido"
-                id="apellido"
-                name="apellido"
-                value={formData.apellido}
-                onChange={handleChange}
-                variant="outlined"
-              />
+              <Tooltip title="Ingrese el apellido del alumno">
+                <TextField
+                  required
+                  fullWidth
+                  label="Apellido"
+                  id="apellido"
+                  name="apellido"
+                  value={formData.apellido}
+                  onChange={handleChange}
+                  variant="outlined"
+                  error={!!errors.apellido}
+                  helperText={errors.apellido}
+                />
+              </Tooltip>
             </Grid>
             <Grid item xs={12} sm={6}>
-              <TextField
-                fullWidth
-                label="Curso"
-                id="curso"
-                name="curso"
-                value={formData.curso}
-                onChange={handleChange}
-                variant="outlined"
-              />
+              <Tooltip title="Ingrese el curso del alumno">
+                <TextField
+                  fullWidth
+                  label="Curso"
+                  id="curso"
+                  name="curso"
+                  value={formData.curso}
+                  onChange={handleChange}
+                  variant="outlined"
+                />
+              </Tooltip>
             </Grid>
             <Grid item xs={12} sm={6}>
-              <TextField
-                required
-                fullWidth
-                label="Email"
-                id="email"
-                name="email"
-                type="email"
-                value={formData.email}
-                onChange={handleChange}
-                variant="outlined"
-              />
+              <Tooltip title="Ingrese un email válido">
+                <TextField
+                  required
+                  fullWidth
+                  label="Email"
+                  id="email"
+                  name="email"
+                  type="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  variant="outlined"
+                  error={!!errors.email}
+                  helperText={errors.email}
+                />
+              </Tooltip>
             </Grid>
             <Grid item xs={12} sm={6}>
-              <TextField
-                fullWidth
-                label="Domicilio"
-                id="domicilio"
-                name="domicilio"
-                value={formData.domicilio}
-                onChange={handleChange}
-                variant="outlined"
-              />
+              <Tooltip title="Ingrese el domicilio del alumno">
+                <TextField
+                  fullWidth
+                  label="Domicilio"
+                  id="domicilio"
+                  name="domicilio"
+                  value={formData.domicilio}
+                  onChange={handleChange}
+                  variant="outlined"
+                />
+              </Tooltip>
             </Grid>
             <Grid item xs={12} sm={6}>
-              <TextField
-                fullWidth
-                label="Teléfono"
-                id="telefono"
-                name="telefono"
-                type="tel"
-                value={formData.telefono}
-                onChange={handleChange}
-                variant="outlined"
-              />
+              <Tooltip title="Ingrese el teléfono del alumno">
+                <TextField
+                  fullWidth
+                  label="Teléfono"
+                  id="telefono"
+                  name="telefono"
+                  type="tel"
+                  value={formData.telefono}
+                  onChange={handleChange}
+                  variant="outlined"
+                />
+              </Tooltip>
             </Grid>
             <Grid item xs={12}>
               <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>

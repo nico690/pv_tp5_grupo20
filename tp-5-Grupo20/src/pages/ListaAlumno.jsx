@@ -133,6 +133,7 @@ function ListaAlumno({ alumnos, eliminarAlumno }) {
                 label="Filtrar por curso"
                 value={filterCurso}
                 onChange={(e) => setFilterCurso(e.target.value)}
+                sx={{ minWidth: '300px' }}
               >
                 <MenuItem value="">Todos los cursos</MenuItem>
                 {cursos.map((curso) => (
